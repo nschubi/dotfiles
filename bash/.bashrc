@@ -32,3 +32,4 @@ export NVM_DIR="$HOME/.nvm"
 # Aliases
 alias ..="cd .."
 alias la="ls -la"
+alias dotfiles="cd ~/.dotfiles"
