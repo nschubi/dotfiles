@@ -1,0 +1,218 @@
+" basic stuff
+set hlsearch
+set scrolloff=10
+set ignorecase smartcase
+set showmode
+set history=1000
+set incsearch
+set clipboard+=unnamed
+set relativenumber
+set visualbell
+set idearefactormode=normal
+set showcmd
+set showmode
+
+" extensions
+set surround
+set highlightedyank
+set NERDTree
+set argtextobj
+set sneak
+set which-key
+set notimeout
+
+" register leader
+let mapleader = " "
+
+" Keybindings
+map H ^
+map L $
+map J }
+map K {
+
+" After block yank and paste, move cursor to the end of operated text and don't override register
+vnoremap p "_dP`]
+nnoremap p p`]
+
+" Y yank whole line by default
+vnoremap y ygv<Esc>$
+nnoremap Y y$
+
+" Yank and paste from clipboard
+nnoremap ,y "+y
+vnoremap ,y "+y
+nnoremap ,yy "+yy
+nnoremap ,p "+p
+
+" have x (removes single character) not go into the default registry
+nnoremap x "_x
+" Make X an operator that removes without placing text in the default registry
+nmap X "_d
+nmap XX "_dd
+vmap X "_d
+vmap x "_d
+
+" don't yank to default register when changing something
+nnoremap c "xc
+xnoremap c "xc
+
+" Copy Word
+nmap ,c yiw
+
+" Select word
+nmap ,v viw
+
+" Reselect last-pasted text
+nnoremap gp `[v`]
+
+" Center screen when jumping to next match
+nnoremap n nzz
+nnoremap N Nzz
+vnoremap n nzz
+vnoremap N Nzz
+
+" Center screen when moving up and down
+nnoremap <C-u> <C-u>zz
+nnoremap <C-o> <C-d>zz
+vnoremap <C-u> <C-u>zz
+vnoremap <C-o> <C-d>zz
+
+" easy window navigation
+nnoremap <a-k> gT
+nnoremap <a-j> gt
+
+" ace
+:map ff <Action>(AceAction)
+:map fv <Action>(AceTargetAction)
+:map fl <Action>(AceLineAction)
+
+xnoremap < <gv
+xnoremap > >gv
+
+" copy whole file
+nmap <C-a> ggVG"+y
+
+" code navigation
+:map gk <Action>(MethodUp)
+:map gj <Action>(MethodDown)
+:map ge <Action>(GotoNextError)
+:map gE <Action>(GotoPreviousError)
+:map gs <Action>(JumpToLastChange)
+:map gl <Action>(JumpToNextChange)
+:map ga <Action>(VcsShowNextChangeMarker)
+:map go <Action>(VcsShowPrevChangeMarker)
+:map gn <Action>(GotoNextElementUnderCaretUsage)
+:map gN <Action>(GotoPrevElementUnderCaretUsage)
+:map gh <Action>(GotoDeclaration)
+
+" built-in navigation to navigated items works better
+:nmap <c-o> <Action>(Back)
+:nmap <c-i> <Action>(Forward)
+
+" but preserve ideavim defaults
+:map g<c-o> <c-o>
+:map g<c-i> <c-i>
+
+" reactivate some IDEA shortcuts
+:map <c-n> <Action>(SearchEverywhere)
+:map <leader>gg <Action>(GotoFile)
+:map <c-b> <Action>(ShowUsages)
+:map <c-s> <Action>(SaveAll)
+:map <c-c> <Action>(GotoImplementation)
+
+" Leader commands
+:map <leader>@ ~
+:map <leader><leader> <Action>(RecentChangedFiles)
+
+" clear the search buffer when hitting return
+nnoremap <leader><cr> :nohlsearch<cr>
+
+" various functionality
+:map <leader>ah <Action>(HighlightUsagesInFile)
+:map <leader>am <Action>(ShowIntentionActions)
+:map <leader>ao <Action>(FileStructurePopup)
+:map <leader>ap <Action>(SelectInProjectView)
+:map <leader>as <Action>(SelectAllOccurrences)
+
+" breakpoints
+:map <leader>bb <Action>(ToggleLineBreakpoint)
+:map <leader>bs <Action>(ViewBreakpoints)
+:map <leader>br <Action>(Debugger.RemoveAllBreakpoints)
+
+" comment out
+:map <leader>cl <Action>(CommentByLineComment)
+:map <leader>cb <Action>(CommentByBlockComment)
+
+" run stuff
+:map <leader>ec <Action>(ChooseRunConfiguration)
+:map <leader>ev <Action>(ChooseDebugConfiguration)
+:map <leader>er <Action>(Run)
+:map <leader>ed <Action>(Debug)
+:map <leader>es <Action>(Stop)
+
+" git
+:map <leader>gm <Action>(Git.Menu)
+
+" help
+:map <leader>hj <Action>(QuickJavaDoc)
+:map <leader>he <Action>(ShowErrorDescription)
+:map <leader>hh <Action>(QuickImplementations)
+:map <leader>hi <Action>(ShowHoverInfo)
+
+" close stuff
+:map <leader>qq <Action>(CloseEditor)
+:map <leader>qa <Action>(CloseAllEditors)
+:map <leader>qw <Action>(CloseAllEditorsButActive)
+
+" code Refactoring
+:map <leader>rr <Action>(RenameElement)
+:map <leader>rl <Action>(Refactorings.QuickListPopupAction)
+:map <leader>rs <Action>(SurroundWith)
+:map <leader>ro <Action>(OptimizeImports)
+
+" toggle / change file
+:map <leader>ts <Action>(NewScratchFile)
+:map <leader>tt <Action>(ActivateTerminalToolWindow)
+:map <leader>tf :NERDTreeFocus<CR>
+
+" splits
+:nmap <leader>wp <Action>(PrevSplitter)
+:nmap <leader>wn <Action>(NextSplitter)
+:nmap <leader>wv <Action>(SplitVertically)
+
+" which-key settings
+let g:WhichKey_FontSize = 16
+let g:WhichKey_CommandColor = "#41ead4"
+let g:WhichKey_PrefixColor = "#f335b2"
+let g:WhichKey_SortOrder = "by_key_prefix_first"
+
+let g:WhichKeyDesc_leader = "<leader> Leader key"
+
+let g:WhichKeyDesc_clear_search = "<leader><cr> Clear Search Buffer"
+let g:WhichKeyDesc_change_case = "<leader>@ Change Case"
+let g:WhichKeyDesc_recent_files = "<leader><leader> Open recently changed files"
+
+let g:WhichKeyDesc_action= "<leader>a Actions"
+let g:WhichKeyDesc_action_highlight = "<leader>ah [h]ighlight usages in file"
+let g:WhichKeyDesc_action_intention = "<leader>am show intention actions"
+let g:WhichKeyDesc_action_file_structure = "<leader>ao [o]pen file structure popup"
+let g:WhichKeyDesc_action_project_view = "<leader>ap select in [p]roject view"
+let g:WhichKeyDesc_action_occurences = "<leader>as [s]elect all occurences"
+
+let g:WhichKeyDesc_breakpoints= "<leader>b Breakpoints"
+
+let g:WhichKeyDesc_comment= "<leader>c Comment"
+
+let g:WhichKeyDesc_execution= "<leader>e Execution"
+
+let g:WhichKeyDesc_git= "<leader>g Git"
+
+let g:WhichKeyDesc_help= "<leader>h Help"
+
+let g:WhichKeyDesc_quit= "<leader>q Quit"
+
+let g:WhichKeyDesc_refactoring= "<leader>r Refactoring"
+
+let g:WhichKeyDesc_toggle= "<leader>t Toggle View"
+
+let g:WhichKeyDesc_window= "<leader>w Window splits"
