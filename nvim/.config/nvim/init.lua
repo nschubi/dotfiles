@@ -1,5 +1,5 @@
-require("config.lazy")
 require("vim-options")
+require("config.lazy")
 
 -- Telescope Plugin Config
 local builtin = require('telescope.builtin')
