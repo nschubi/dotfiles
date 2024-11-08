@@ -25,11 +25,10 @@ vim.wo.relativenumber = true
 
 -- Set Leader Keys
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 
 -- Keymaps
 local modes = { 'n', 'v' }
-vim.keymap.set(modes, 'H', '0', { noremap = true, silent = true })
+vim.keymap.set(modes, 'H', '^', { noremap = true, silent = true })
 vim.keymap.set(modes, 'L', '$', { noremap = true, silent = true })
 
 -- Highlight yanked text
