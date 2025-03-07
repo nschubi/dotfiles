@@ -17,9 +17,11 @@ set surround
 set highlightedyank
 set NERDTree
 set argtextobj
-set sneak
+set quickscope
 set which-key
 set notimeout
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 " register leader
 let mapleader = " "
@@ -78,13 +80,11 @@ vnoremap <C-u> <C-u>zz
 vnoremap <C-o> <C-d>zz
 
 " easy window navigation
-nnoremap <a-k> gT
-nnoremap <a-j> gt
+nnoremap <a-k> gt
+nnoremap <a-j> gT
 
 " ace
-:map ff <Action>(AceAction)
-:map fv <Action>(AceTargetAction)
-:map fl <Action>(AceLineAction)
+:map s <Action>(AceAction)
 
 xnoremap < <gv
 xnoremap > >gv
@@ -103,7 +103,7 @@ nmap <C-a> ggVG"+y
 :map go <Action>(VcsShowPrevChangeMarker)
 :map gn <Action>(GotoNextElementUnderCaretUsage)
 :map gN <Action>(GotoPrevElementUnderCaretUsage)
-:map gh <Action>(GotoDeclaration)
+:map gd <Action>(GotoDeclaration)
 
 " built-in navigation to navigated items works better
 :nmap <c-o> <Action>(Back)
@@ -115,7 +115,6 @@ nmap <C-a> ggVG"+y
 
 " reactivate some IDEA shortcuts
 :map <c-n> <Action>(SearchEverywhere)
-:map <leader>gg <Action>(GotoFile)
 :map <c-b> <Action>(ShowUsages)
 :map <c-s> <Action>(SaveAll)
 :map <c-c> <Action>(GotoImplementation)
@@ -133,10 +132,11 @@ nnoremap <leader><cr> :nohlsearch<cr>
 :map <leader>ao <Action>(FileStructurePopup)
 :map <leader>ap <Action>(SelectInProjectView)
 :map <leader>as <Action>(SelectAllOccurrences)
+:map <leader>ag <Action>(Generate)
 
 " breakpoints
 :map <leader>bb <Action>(ToggleLineBreakpoint)
-:map <leader>bs <Action>(ViewBreakpoints)
+:map <leader>bv <Action>(ViewBreakpoints)
 :map <leader>br <Action>(Debugger.RemoveAllBreakpoints)
 
 " comment out
@@ -145,12 +145,13 @@ nnoremap <leader><cr> :nohlsearch<cr>
 
 " run stuff
 :map <leader>ec <Action>(ChooseRunConfiguration)
-:map <leader>ev <Action>(ChooseDebugConfiguration)
+:map <leader>ef <Action>(ChooseDebugConfiguration)
 :map <leader>er <Action>(Run)
 :map <leader>ed <Action>(Debug)
 :map <leader>es <Action>(Stop)
 
 " git
+:map <leader>gg <Action>(GotoFile)
 :map <leader>gm <Action>(Git.Menu)
 
 " help
@@ -166,12 +167,12 @@ nnoremap <leader><cr> :nohlsearch<cr>
 
 " code Refactoring
 :map <leader>rr <Action>(RenameElement)
+:map <leader>rf <Action>(ReformatCode)
 :map <leader>rl <Action>(Refactorings.QuickListPopupAction)
 :map <leader>rs <Action>(SurroundWith)
 :map <leader>ro <Action>(OptimizeImports)
 
 " toggle / change file
-:map <leader>ts <Action>(NewScratchFile)
 :map <leader>tt <Action>(ActivateTerminalToolWindow)
 :map <leader>tf :NERDTreeFocus<CR>
 
@@ -188,31 +189,61 @@ let g:WhichKey_SortOrder = "by_key_prefix_first"
 
 let g:WhichKeyDesc_leader = "<leader> Leader key"
 
-let g:WhichKeyDesc_clear_search = "<leader><cr> Clear Search Buffer"
-let g:WhichKeyDesc_change_case = "<leader>@ Change Case"
-let g:WhichKeyDesc_recent_files = "<leader><leader> Open recently changed files"
+let g:WhichKeyDesc_clear_search = "<leader><cr> clear search buffer"
+let g:WhichKeyDesc_change_case = "<leader>@ change case"
+let g:WhichKeyDesc_recent_files = "<leader><leader> open recently changed files"
 
 let g:WhichKeyDesc_action= "<leader>a Actions"
+let g:WhichKeyDesc_action_generate = "<leader>ag [g]enerate"
 let g:WhichKeyDesc_action_highlight = "<leader>ah [h]ighlight usages in file"
-let g:WhichKeyDesc_action_intention = "<leader>am show intention actions"
 let g:WhichKeyDesc_action_file_structure = "<leader>ao [o]pen file structure popup"
 let g:WhichKeyDesc_action_project_view = "<leader>ap select in [p]roject view"
 let g:WhichKeyDesc_action_occurences = "<leader>as [s]elect all occurences"
 
 let g:WhichKeyDesc_breakpoints= "<leader>b Breakpoints"
+let g:WhichKeyDesc_action_toggle_breakpoint = "<leader>bb toggle breakpoint"
+let g:WhichKeyDesc_action_remove_breakpoint = "<leader>br [r]emove all breakpoints"
+let g:WhichKeyDesc_action_view_breakpoint = "<leader>bv [v]iew all breakpoints"
 
 let g:WhichKeyDesc_comment= "<leader>c Comment"
+let g:WhichKeyDesc_action_comment_line = "<leader>cl comment [l]ine out"
+let g:WhichKeyDesc_action_comment_block = "<leader>cb comment [b]lock out"
 
 let g:WhichKeyDesc_execution= "<leader>e Execution"
+let g:WhichKeyDesc_action_execute_run = "<leader>er [r]un program"
+let g:WhichKeyDesc_action_execute_debug = "<leader>ed [d]ebug program"
+let g:WhichKeyDesc_action_config_run = "<leader>ec edit run [c]onfig"
+let g:WhichKeyDesc_action_config_debug = "<leader>ef edit debug con[f]ig"
+let g:WhichKeyDesc_action_stop = "<leader>es [s]top execution"
 
 let g:WhichKeyDesc_git= "<leader>g Git"
+let g:WhichKeyDesc_action_goto = "<leader>gg [g]o to file"
+let g:WhichKeyDesc_action_git_menu = "<leader>gm git [m]enu"
 
 let g:WhichKeyDesc_help= "<leader>h Help"
+let g:WhichKeyDesc_action_help_error = "<leader>he show [e]rror description"
+let g:WhichKeyDesc_action_help_impl = "<leader>hh quick implementations"
+let g:WhichKeyDesc_action_help_info = "<leader>hi show [i]nfo"
+let g:WhichKeyDesc_action_help_javadoc = "<leader>hj show quick [j]avadoc"
 
 let g:WhichKeyDesc_quit= "<leader>q Quit"
+let g:WhichKeyDesc_action_quit_active = "<leader>qq [q]uit active editor"
+let g:WhichKeyDesc_action_quit_all = "<leader>qa quit [a]ll editors"
+let g:WhichKeyDesc_action_quit_else = "<leader>qw quit all but active editor"
 
 let g:WhichKeyDesc_refactoring= "<leader>r Refactoring"
+let g:WhichKeyDesc_action_refactoring_reformat = "<leader>rf [f]ormat code"
+let g:WhichKeyDesc_action_refactoring_list = "<leader>rl show refactor [l]ist"
+let g:WhichKeyDesc_action_refactoring_optimize = "<leader>ro [o]ptimize imports"
+let g:WhichKeyDesc_action_refactoring_rename = "<leader>rr [r]ename"
+let g:WhichKeyDesc_action_refactoring_surround = "<leader>rs [s]urround with"
 
 let g:WhichKeyDesc_toggle= "<leader>t Toggle View"
+let g:WhichKeyDesc_action_toggle_filetree = "<leader>tf go to [f]ile tree"
+let g:WhichKeyDesc_action_toggle_terminal = "<leader>tt go to [t]erminal"
 
 let g:WhichKeyDesc_window= "<leader>w Window splits"
+let g:WhichKeyDesc_action_splits_prev = "<leader>wp go to [p]revious split"
+let g:WhichKeyDesc_action_toggle_terminal = "<leader>tt go to [t]erminal"
+let g:WhichKeyDesc_action_splits_next = "<leader>wn go to [n]ext split"
+let g:WhichKeyDesc_action_splits_vertical = "<leader>wv split window [v]ertically"
