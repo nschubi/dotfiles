@@ -9,6 +9,7 @@ fi
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
     PATH=$PATH:/usr/local/go/bin
+    PATH=$PATH:~/bin
 fi
 export PATH
 
@@ -33,3 +34,7 @@ export NVM_DIR="$HOME/.nvm"
 alias ..="cd .."
 alias la="ls -la"
 alias dotfiles="cd ~/.dotfiles"
+alias bachelor="cd /home/nico/Nextcloud/Uni/Bachelorarbeit"
+alias pbcopy='xclip -selection clipboard'
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
