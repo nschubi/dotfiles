@@ -14,7 +14,7 @@ opt.smartcase = true
 opt.incsearch = true
 
 -- Editor behavior
-opt.clipboard = 'unnamedplus'
+opt.clipboard = "unnamedplus"
 opt.scrolloff = 10
 opt.history = 1000
 opt.visualbell = true
@@ -27,16 +27,19 @@ vim.wo.relativenumber = true
 vim.g.mapleader = " "
 
 -- Keymaps
-local modes = { 'n', 'v' }
-vim.keymap.set(modes, 'H', '^', { noremap = true, silent = true })
-vim.keymap.set(modes, 'L', '$', { noremap = true, silent = true })
+local key = vim.keymap
+local modes_nvo = { "n", "v", "o" }
+local modes_nv = { "n", "v", "o" }
+
+key.set(modes_nvo, "H", "^", { noremap = true, silent = true })
+key.set(modes_nvo, "L", "$", { noremap = true, silent = true })
 
 -- Highlight yanked text
-vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-        vim.highlight.on_yank({
-            higroup = 'IncSearch',
-            timeout = 300,
-        })
-    end
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank({
+			higroup = "IncSearch",
+			timeout = 300,
+		})
+	end,
 })
