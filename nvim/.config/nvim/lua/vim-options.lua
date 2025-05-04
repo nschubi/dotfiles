@@ -1,6 +1,10 @@
 -- Create a local options table for better organization
 local opt = vim.opt
 
+-- Spellchecking
+opt.spelllang = "de_de,en_us"
+opt.spell = true
+
 -- Indentation
 opt.expandtab = true
 opt.tabstop = 2
