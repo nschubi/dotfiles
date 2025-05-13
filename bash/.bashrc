@@ -38,3 +38,7 @@ alias bachelor="cd /home/nico/Nextcloud/Uni/Bachelorarbeit"
 alias pbcopy='xclip -selection clipboard'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
