@@ -85,6 +85,8 @@ nnoremap <a-j> gT
 
 " ace
 :map s <Action>(AceAction)
+" fuer Paritaet mit Neovim
+:map S <Action>(AceAction)
 
 xnoremap < <gv
 xnoremap > >gv
