@@ -35,7 +35,8 @@ alias ..="cd .."
 alias la="ls -la"
 alias dotfiles="cd ~/.dotfiles"
 alias bachelor="cd /home/nico/Nextcloud/Uni/Bachelorarbeit"
-alias pbcopy='xclip -selection clipboard'
+alias projekte="cd /home/nico/Nextcloud/Projekte"
+alias copy='xclip -selection clipboard'
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
