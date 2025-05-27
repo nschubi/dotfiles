@@ -11,6 +11,9 @@ return {
 				-- Formatters
 				null_ls.builtins.formatting.stylua,
 				null_ls.builtins.formatting.prettier,
+        -- Formatter Go
+        null_ls.builtins.formatting.gofmt,
+        null_ls.builtins.formatting.goimports_reviser,
 				-- Linters
 				require("none-ls.diagnostics.eslint_d"),
 			},
