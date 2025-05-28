@@ -1,29 +1,33 @@
-" basic stuff
+" VIM Options
+" Search
 set hlsearch
-set scrolloff=10
 set ignorecase smartcase
-set showmode
-set history=1000
 set incsearch
-set clipboard+=unnamed
+" Navigation
+set scrolloff=10
+" Display & Visual Feedback
+set showmode
+set showcmd
 set relativenumber
 set visualbell
+" Command & Input Handling
+set clipboard+=unnamed
+set notimeout
+set history=1000
 set idearefactormode=normal
-set showcmd
-set showmode
 
-" extensions
-set surround
-set highlightedyank
-set NERDTree
-set argtextobj
+" Extensions
+Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'machakann/vim-highlightedyank'
+Plugin 'preservim/nerdtree'
+" IntelliJ IDEA Vim Plugins
 set quickscope
 set which-key
-set notimeout
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-" register leader
+" Register Leader Key
 let mapleader = " "
 
 " Keybindings
@@ -75,18 +79,18 @@ vnoremap N Nzz
 
 " Center screen when moving up and down
 nnoremap <C-u> <C-u>zz
-nnoremap <C-o> <C-d>zz
+nnoremap <C-d> <C-d>zz
 vnoremap <C-u> <C-u>zz
-vnoremap <C-o> <C-d>zz
+vnoremap <C-d> <C-d>zz
 
 " easy window navigation
 nnoremap <a-k> gt
 nnoremap <a-j> gT
 
 " ace
-:map s <Action>(AceAction)
-" fuer Paritaet mit Neovim
-:map S <Action>(AceAction)
+nmap <leader>s <Action>(AceAction)
+" map capital S to AceAction as well to match Neovim
+nmap <leader>S <Action>(AceAction)
 
 xnoremap < <gv
 xnoremap > >gv
@@ -106,6 +110,7 @@ nmap <C-a> ggVG"+y
 :map gn <Action>(GotoNextElementUnderCaretUsage)
 :map gN <Action>(GotoPrevElementUnderCaretUsage)
 :map gd <Action>(GotoDeclaration)
+:map gu <Action>(ShowUsages)
 
 " built-in navigation to navigated items works better
 :nmap <c-o> <Action>(Back)
@@ -116,10 +121,7 @@ nmap <C-a> ggVG"+y
 :map g<c-i> <c-i>
 
 " reactivate some IDEA shortcuts
-:map <c-n> <Action>(SearchEverywhere)
-:map <c-b> <Action>(ShowUsages)
 :map <c-s> <Action>(SaveAll)
-:map <c-c> <Action>(GotoImplementation)
 
 " Leader commands
 :map <leader>@ ~
@@ -152,8 +154,11 @@ nnoremap <leader><cr> :nohlsearch<cr>
 :map <leader>ed <Action>(Debug)
 :map <leader>es <Action>(Stop)
 
+" file
+:map <leader>ff <Action>(SearchEverywhere)
+:map <leader>fg <Action>(FindInPath)
+
 " git
-:map <leader>gg <Action>(GotoFile)
 :map <leader>gm <Action>(Git.Menu)
 
 " help
@@ -174,7 +179,7 @@ nnoremap <leader><cr> :nohlsearch<cr>
 :map <leader>rs <Action>(SurroundWith)
 :map <leader>ro <Action>(OptimizeImports)
 
-" toggle / change file
+" toggle
 :map <leader>tt <Action>(ActivateTerminalToolWindow)
 :map <leader>tf :NERDTreeFocus<CR>
 
@@ -217,6 +222,10 @@ let g:WhichKeyDesc_action_execute_debug = "<leader>ed [d]ebug program"
 let g:WhichKeyDesc_action_config_run = "<leader>ec edit run [c]onfig"
 let g:WhichKeyDesc_action_config_debug = "<leader>ef edit debug con[f]ig"
 let g:WhichKeyDesc_action_stop = "<leader>es [s]top execution"
+
+let g:WhichKeyDesc_file= "<leader>f File"
+let g:WhichKeyDesc_action_fuzzy_find = "<leader>ff [f]ind file"
+let g:WhichKeyDesc_action_fuzzy_grep = "<leader>fg [g]rep in path"
 
 let g:WhichKeyDesc_git= "<leader>g Git"
 let g:WhichKeyDesc_action_goto = "<leader>gg [g]o to file"
