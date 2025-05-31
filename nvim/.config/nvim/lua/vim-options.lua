@@ -22,6 +22,7 @@ opt.clipboard = "unnamedplus"
 opt.scrolloff = 10
 opt.history = 1000
 opt.visualbell = true
+opt.timeoutlen = 5000
 
 -- Set Number
 vim.wo.number = true

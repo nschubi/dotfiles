@@ -43,9 +43,12 @@ return {
         capabilities = capabilities,
         settings = {
           ltex = {
-            language = "de-DE",
-            -- Optional: Rechtschreibprüfung komplett deaktivieren
-            -- enabled = false,
+            language = "auto",
+            completionEnabled =false,
+            additionalRules = {
+              enablePickyRules = false,
+              motherTongue = "de-DE"
+            }
           }
         }
       })
