@@ -38,9 +38,21 @@ return {
         capabilities = capabilities,
       })
 
+      -- ltex für deutsche Rechtschreibung/Grammatik
+      lspconfig.ltex.setup({
+        capabilities = capabilities,
+        settings = {
+          ltex = {
+            language = "de-DE",
+            -- Optional: Rechtschreibprüfung komplett deaktivieren
+            -- enabled = false,
+          }
+        }
+      })
+
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<leader>rf", vim.lsp.buf.code_action, {})
+      vim.keymap.set({ "n", "v" }, "<M-CR>", vim.lsp.buf.code_action, {})
     end,
   },
 }
