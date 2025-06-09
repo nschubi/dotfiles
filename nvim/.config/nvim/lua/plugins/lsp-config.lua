@@ -37,8 +37,6 @@ return {
       lspconfig.gopls.setup({
         capabilities = capabilities,
       })
-
-      -- ltex für deutsche Rechtschreibung/Grammatik
       lspconfig.ltex.setup({
         capabilities = capabilities,
         settings = {
