@@ -10,6 +10,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "emmet_ls", "gopls", "ltex", "texlab" },
+        handlers = {}
       })
     end,
   },
@@ -17,32 +18,16 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      vim.lsp.config('*', {
+        capabilities = capabilities,
+      })
 
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.cssls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.emmet_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.gopls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.ltex.setup({
-        capabilities = capabilities,
+      -- 2. ltex mit zusätzlichen Settings konfigurieren
+      vim.lsp.config('ltex', {
         settings = {
           ltex = {
             language = "auto",
-            completionEnabled =false,
+            completionEnabled = false,
             additionalRules = {
               enablePickyRules = false,
               motherTongue = "de-DE"
@@ -50,13 +35,21 @@ return {
           }
         }
       })
-      lspconfig.texlab.setup({
-        capabilities = capabilities,
-      })
 
+      -- 3. Server aktivieren (statt setup)
+      vim.lsp.enable('lua_ls')
+      vim.lsp.enable('ts_ls')
+      vim.lsp.enable('html')
+      vim.lsp.enable('cssls')
+      vim.lsp.enable('emmet_ls')
+      vim.lsp.enable('gopls')
+      vim.lsp.enable('ltex')
+      vim.lsp.enable('texlab')
+
+      -- 4. Keybindings bleiben gleich
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
       vim.keymap.set({ "n", "v" }, "<M-CR>", vim.lsp.buf.code_action, {})
-    end,
+      end
   },
 }
