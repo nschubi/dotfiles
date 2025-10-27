@@ -34,7 +34,7 @@ export NVM_DIR="$HOME/.nvm"
 alias ..="cd .."
 alias la="ls -la"
 alias dotfiles="cd ~/.dotfiles"
-alias bachelor="cd /home/nico/Nextcloud/Uni/Bachelorarbeit"
+alias master="cd /home/nico/Nextcloud/Uni/Master"
 alias projekte="cd /home/nico/Nextcloud/Projekte"
 alias copy='xclip -selection clipboard'
 
