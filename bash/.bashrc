@@ -43,3 +43,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Add JBang to environment
 alias j!=jbang
 export PATH="$HOME/.jbang/bin:$PATH"
+
+eval "$(starship init bash)"
