@@ -50,6 +50,18 @@ keymap.set('x', '>', '>gv', { noremap = true, silent = true })
 keymap.set('n', '<C-a>', 'ggVG"+y', { noremap = true, silent = true })
 
 -- Leader Keymappings
+local wk = require("which-key")
+
+wk.add({
+  { "<leader>e", group = "Explorer" },
+  { "<leader>f", group = "Find/Telescope" },
+  { "<leader>g", group = "LSP/Go to" },
+  { "<leader>h", group = "Harpoon" },
+  { "<leader>q", group = "Quickfix" },
+  { "<leader>r", group = "Refactoring" },
+  { "<leader>t", group = "Tabs" },
+})
+
 keymap.set("n", "<leader>ee", ":NvimTreeToggle<CR>", {desc = 'Toggle File Explorer'})
 keymap.set("n", "<leader>er", ":NvimTreeFocus<CR>", {desc = 'Toggle Focus to File Explorer'})
 keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>", {desc = 'Find File in File Explorer'})
@@ -99,10 +111,7 @@ keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
-
-keymap.set('n', '<leader>gf', function()
-  require('conform').format({ async = true, lsp_fallback = true })
-  end, { desc = 'Format buffer' })
+keymap.set("n", "gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
 
 -- Quickfix keymaps
 keymap.set("n", "<leader>qo", ":copen<CR>") -- open quickfix list
@@ -112,13 +121,15 @@ keymap.set("n", "<leader>qp", ":cprev<CR>") -- jump to prev quickfix list item
 keymap.set("n", "<leader>ql", ":clast<CR>") -- jump to last quickfix list item
 keymap.set("n", "<leader>qc", ":cclose<CR>") -- close quickfix list
 
+-- Refactoring keymaps
 keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+keymap.set('n', '<leader>rf', function()
+  require('conform').format({ async = true, lsp_fallback = true })
+  end, { desc = 'Format buffer' })
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab
 keymap.set("n", "<leader>tx", ":tabclose<CR>") -- close a tab
 keymap.set("n", "<leader>tn", ":tabn<CR>") -- next tab
 keymap.set("n", "<leader>tp", ":tabp<CR>") -- previous tab
-
-keymap.set("n", "gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
 
