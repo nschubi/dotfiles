@@ -1,55 +1,80 @@
+-- LSP Support
 return {
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
+  -- LSP Configuration
+  -- https://github.com/neovim/nvim-lspconfig
+  'neovim/nvim-lspconfig',
+  event = 'VeryLazy',
+  dependencies = {
+    -- LSP Management
+    { 'williamboman/mason.nvim' },
+    { 'williamboman/mason-lspconfig.nvim' },
+    -- Auto-Install LSPs, linters, formatters, debuggers
+    { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
+    -- Useful status updates for LSP
+    { 'j-hui/fidget.nvim', opts = {} },
+    -- Additional lua configuration, makes nvim stuff amazing!
+    { 'folke/lazydev.nvim', opts = {} }, -- neodev.nvim ist deprecated, lazydev.nvim ist der Nachfolger
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "ts_ls", "html", "cssls", "emmet_ls", "gopls", "ltex", "texlab" },
-        handlers = {}
-      })
-    end,
-  },
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      vim.lsp.config('*', {
-        capabilities = capabilities,
-      })
+  config = function()
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+      -- Install these LSPs automatically
+      ensure_installed = {
+        'bashls',
+        'cssls',
+        'html',
+        'gopls',
+        'gradle_ls',
+        'groovyls',
+        'lua_ls',
+        -- 'jdtls',
+        'jsonls',
+        'lemminx',
+        'marksman',
+        'quick_lint_js',
+        'yamlls',
+      },
+      -- Automatisch LSPs aktivieren nach Installation
+      automatic_enable = true,
+    })
 
-      -- 2. ltex mit zusätzlichen Settings konfigurieren
-      vim.lsp.config('ltex', {
-        settings = {
-          ltex = {
-            language = "auto",
-            completionEnabled = false,
-            additionalRules = {
-              enablePickyRules = false,
-              motherTongue = "de-DE"
-            }
-          }
-        }
-      })
+    require('mason-tool-installer').setup({
+      ensure_installed = {
+        -- 'java-debug-adapter',
+        -- 'java-test',
+      },
+    })
 
-      -- 3. Server aktivieren (statt setup)
-      vim.lsp.enable('lua_ls')
-      vim.lsp.enable('ts_ls')
-      vim.lsp.enable('html')
-      vim.lsp.enable('cssls')
-      vim.lsp.enable('emmet_ls')
-      vim.lsp.enable('gopls')
-      vim.lsp.enable('ltex')
-      vim.lsp.enable('texlab')
+    vim.api.nvim_command('MasonToolsInstall')
 
-      -- 4. Keybindings bleiben gleich
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
-      vim.keymap.set({ "n", "v" }, "<M-CR>", vim.lsp.buf.code_action, {})
-      end
-  },
+    -- Capabilities für Autocompletion (cmp)
+    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    -- Globale LSP-Konfiguration für alle Server
+    vim.lsp.config('*', {
+      capabilities = lsp_capabilities,
+      on_attach = function(client, bufnr)
+        -- Deine Keybindings hier...
+      end,
+    })
+
+    -- Lua LSP spezifische Einstellungen
+    vim.lsp.config.lua_ls = {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+        },
+      },
+    }
+
+    -- Globally configure all LSP floating preview popups
+    local open_floating_preview = vim.lsp.util.open_floating_preview
+    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+      opts = opts or {}
+      opts.border = opts.border or 'rounded'
+      return open_floating_preview(contents, syntax, opts, ...)
+    end
+  end,
 }
