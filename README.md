@@ -26,8 +26,8 @@ sudo pacman -S stow
 
 2. Install a configuration by running stow with the package name (folder name):
 ```bash
-   stow zsh      # symlinks zsh config
-   stow nvim     # symlinks neovim config
+   stow bash    # symlinks bash config
+   stow nvim    # symlinks neovim config
 ```
 
 3. To install all configurations at once:
@@ -37,9 +37,9 @@ sudo pacman -S stow
 
 4. To remove a configuration:
 ```bash
-   stow -D zsh
+   stow -D bash
 ```
 
 ### How it works
 
-Stow creates symlinks from the dotfiles directory to your home directory, mirroring the folder structure. For example, `~/dotfiles/zsh/.zshrc` becomes `~/.zshrc`.
+Stow creates symlinks from the dotfiles directory to your home directory, mirroring the folder structure. For example, `~/dotfiles/bash/.bashrc` becomes `~/.bashrc`.
