@@ -54,64 +54,63 @@ local wk = require("which-key")
 
 wk.add({
   { "<leader>e", group = "Explorer" },
-  { "<leader>f", group = "Find/Telescope" },
-  { "<leader>g", group = "LSP/Go to" },
+  { "<leader>f", group = "Find / Telescope" },
+  { "<leader>g", group = "Go to" },
   { "<leader>h", group = "Harpoon" },
   { "<leader>q", group = "Quickfix" },
   { "<leader>r", group = "Refactoring" },
   { "<leader>t", group = "Tabs" },
 })
 
-keymap.set("n", "<leader>ee", ":NvimTreeToggle<CR>", {desc = 'Toggle File Explorer'})
-keymap.set("n", "<leader>er", ":NvimTreeFocus<CR>", {desc = 'Toggle Focus to File Explorer'})
-keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>", {desc = 'Find File in File Explorer'})
+keymap.set("n", "<leader>ee", ":NvimTreeToggle<CR>", {desc = 'toggle file [e]xplorer'})
+keymap.set("n", "<leader>er", ":NvimTreeFocus<CR>", {desc = 'toggle focus to file explorer'})
+keymap.set("n", "<leader>ef", ":NvimTreeFindFile<CR>", {desc = '[f]ind file in file explorer'})
 
-keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Fuzzy find files' })
-keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = 'Fuzzy grep' })
-keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'Show Telescope Buffers' })
-keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = 'Show Telescope Help Tags' })
-keymap.set('n', '<leader>fs', require('telescope.builtin').current_buffer_fuzzy_find, {desc = 'fuzzy find in current file buffer'})
-keymap.set('n', '<leader>fo', require('telescope.builtin').lsp_document_symbols, {desc = 'fuzzy find LSP/class symbols'})
-keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_incoming_calls, {desc = 'fuzzy find LSP/incoming calls'})
-keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end, {desc = 'fuzzy find methods in current class'})
+keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[f]uzzy find files' })
+keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = '[f]uzzy grep files' })
+keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'show Telescope [b]uffers' })
+keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = 'show Telescope [h]elp tags' })
+keymap.set('n', '<leader>fc', require('telescope.builtin').current_buffer_fuzzy_find, {desc = 'fuzzy find in [c]urrent file buffer'})
+keymap.set('n', '<leader>fs', require('telescope.builtin').lsp_document_symbols, {desc = 'fuzzy find LSP/class [s]ymbols'})
+keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_incoming_calls, {desc = 'fuzzy find LSP/[i]ncoming calls'})
+keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end, {desc = 'fuzzy find [m]ethods in current class'})
 keymap.set('n', '<leader>ft', function()
   local success, node = pcall(function() return require('nvim-tree.lib').get_node_at_cursor() end)
   if not success or not node then return end;
   require('telescope.builtin').live_grep({search_dirs = {node.absolute_path}})
-end, {desc = 'grep file contents in current nvim-tree node'})
+end, {desc = 'grep file contents in current nvim-[t]ree node'})
 
 -- Harpoon
 local harpoon = require("harpoon")
 harpoon:setup()
-keymap.set("n", "<leader>ha", function() harpoon:list():add() end, {desc = 'Add Mark to Harpoon'})
-keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, {desc = 'Open Harpoon Menu'})
-keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end)
-keymap.set("n", "<leader>h2", function() harpoon:list():select(2) end)
-keymap.set("n", "<leader>h3", function() harpoon:list():select(3) end)
-keymap.set("n", "<leader>h4", function() harpoon:list():select(4) end)
-keymap.set("n", "<leader>h5", function() harpoon:list():select(5) end)
-keymap.set("n", "<leader>h6", function() harpoon:list():select(6) end)
-keymap.set("n", "<leader>h7", function() harpoon:list():select(7) end)
-keymap.set("n", "<leader>h8", function() harpoon:list():select(8) end)
-keymap.set("n", "<leader>h9", function() harpoon:list():select(9) end)
+keymap.set("n", "<leader>ha", function() harpoon:list():add() end, {desc = '[a]dd mark to Harpoon'})
+keymap.set("n", "<leader>hh", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, {desc = 'open [h]arpoon menu'})
+keymap.set("n", "<leader>h1", function() harpoon:list():select(1) end, {desc = 'go to mark [1]'})
+keymap.set("n", "<leader>h2", function() harpoon:list():select(2) end, {desc = 'go to mark [2]'})
+keymap.set("n", "<leader>h3", function() harpoon:list():select(3) end, {desc = 'go to mark [3]'})
+keymap.set("n", "<leader>h4", function() harpoon:list():select(4) end, {desc = 'go to mark [4]'})
+keymap.set("n", "<leader>h5", function() harpoon:list():select(5) end, {desc = 'go to mark [5]'})
+keymap.set("n", "<leader>h6", function() harpoon:list():select(6) end, {desc = 'go to mark [6]'})
+keymap.set("n", "<leader>h7", function() harpoon:list():select(7) end, {desc = 'go to mark [7]'})
+keymap.set("n", "<leader>h8", function() harpoon:list():select(8) end, {desc = 'go to mark [8]'})
+keymap.set("n", "<leader>h9", function() harpoon:list():select(9) end, {desc = 'go to mark [9]'})
 
 -- LSP
-keymap.set('n', '<leader>gg', '<cmd>lua vim.lsp.buf.hover()<CR>')
-keymap.set('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-keymap.set('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-keymap.set('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-keymap.set('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-keymap.set('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-keymap.set('n', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
-keymap.set('v', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
-keymap.set('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
-keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
+keymap.set('n', '<leader>gg', '<cmd>lua vim.lsp.buf.hover()<CR>', {desc = '[g]o into hover'})
+keymap.set('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {desc = 'go to [d]efinition'})
+keymap.set('n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {desc = 'go to [D]eclaration'})
+keymap.set('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {desc = 'go to [i]mplementation'})
+keymap.set('n', '<leader>gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', {desc = 'go to [t]ype definition'})
+keymap.set('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', {desc = 'go to [r]eferences'})
+keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', {desc = 'go to [s]ignature help'})
+keymap.set('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', {desc = 'go to code [a]ction'})
+keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>', {desc = 'open float?'})
+keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', {desc = 'go to [p]rev error'})
+keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', {desc = 'go to [n]ext error'})
+keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>', {desc = 'document_symbol?'})
+
 keymap.set("n", "gx", ":!open <c-r><c-a><CR>") -- open URL under cursor
+keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
 -- Quickfix keymaps
 keymap.set("n", "<leader>qo", ":copen<CR>") -- open quickfix list
@@ -125,7 +124,10 @@ keymap.set("n", "<leader>qc", ":cclose<CR>") -- close quickfix list
 keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
 keymap.set('n', '<leader>rf', function()
   require('conform').format({ async = true, lsp_fallback = true })
-  end, { desc = 'Format buffer' })
+  end, { desc = 'refactor [f]ormatting' })
+keymap.set('v', '<leader>rf', function()
+  require('conform').format({ async = true, lsp_fallback = true })
+  end, { desc = 'refactor [f]ormatting' })
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab
