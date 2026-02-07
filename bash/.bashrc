@@ -38,10 +38,6 @@ alias master="cd /home/nico/Nextcloud/Uni/Master"
 alias projekte="cd /home/nico/Nextcloud/Projekte"
 alias copy='xclip -selection clipboard'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # Add JBang to environment
 alias j!=jbang
 export PATH="$HOME/.jbang/bin:$PATH"
-
-eval "$(starship init bash)"
