@@ -8,6 +8,7 @@ fi
 # =============================================================================
 # Zinit
 # =============================================================================
+# 
 source "${HOME}/.local/share/zinit/zinit.git/zinit.zsh"
 
 # =============================================================================
@@ -84,9 +85,11 @@ fi
 # =============================================================================
 alias ..="cd .."
 alias la="ls -la"
+alias ll="ls -l"
 alias dotfiles="cd ~/.dotfiles"
 alias master="cd /home/nico/Nextcloud/Uni/Master"
 alias projekte="cd /home/nico/Nextcloud/Projekte"
 alias copy='xclip -selection clipboard'
 alias j!=jbang
 
+### End of Zinit's installer chunk
