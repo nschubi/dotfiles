@@ -1,19 +1,19 @@
--- LaTeX-spezifische Konfiguration
-local opts = { noremap = true, silent = true, buffer = 0 }
+-- ftplugin/tex.lua
+local opts = function(desc)
+  return { buffer = 0, desc = desc }
+end
 
--- VimTeX-spezifische Bindings (immer verfügbar)
-vim.keymap.set('n', '<leader>ll', '<cmd>VimtexCompile<CR>', opts)
-vim.keymap.set('n', '<leader>lv', '<cmd>VimtexView<CR>', opts)
-vim.keymap.set('n', '<leader>lc', '<cmd>VimtexClean<CR>', opts)
-vim.keymap.set('n', '<leader>lt', '<cmd>VimtexTocToggle<CR>', opts)
-vim.keymap.set('n', '<leader>li', '<cmd>VimtexInfo<CR>', opts)
+-- <leader>d = Language actions (LaTeX)
+vim.keymap.set('n', '<leader>dc', '<cmd>VimtexCompile<CR>', opts('[c]ompile (toggle)'))
+vim.keymap.set('n', '<leader>dv', '<cmd>VimtexView<CR>', opts('[v]iew PDF'))
+vim.keymap.set('n', '<leader>ds', '<cmd>VimtexStop<CR>', opts('[s]top'))
+vim.keymap.set('n', '<leader>dx', '<cmd>VimtexClean<CR>', opts('clean au[x]'))
+vim.keymap.set('n', '<leader>dt', '<cmd>VimtexTocToggle<CR>', opts('[t]oc toggle'))
+vim.keymap.set('n', '<leader>di', '<cmd>VimtexInfo<CR>', opts('[i]nfo'))
+vim.keymap.set('n', '<leader>de', '<cmd>VimtexErrors<CR>', opts('[e]rrors'))
 
--- Citation-Einfügung per Autocompletion
-vim.keymap.set('i', '<C-c>', '<C-x><C-o>', opts)
+-- Telescope BibTeX
+vim.keymap.set('n', '<leader>db', ':Telescope bibtex<CR>', opts('[b]ibtex search'))
 
--- Telescope BibTeX (mit Verfügbarkeitsprüfung)
-vim.keymap.set('n', '<leader>fc', ':Telescope bibtex<CR>', opts)
-
--- LaTeX-spezifische Einstellungen
 vim.opt_local.spell = true
 vim.opt_local.conceallevel = 2
