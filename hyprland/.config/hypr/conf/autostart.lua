@@ -12,5 +12,6 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd("nextcloud")
    hl.exec_cmd("waybar")
    hl.exec_cmd("hyprpaper")
+   hl.exec_cmd("hyprlock & hypridle")
 end)
 
